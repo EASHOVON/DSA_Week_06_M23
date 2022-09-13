@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 template <typename N>
@@ -6,13 +7,14 @@ class Node
 {
 public:
     N value;
-    Node *Prev;
-    Node *Next;
-    Node(N val)
+    Node *prev;
+    Node *next;
+
+    Node(N value)
     {
-        this->value = val;
-        this->Prev = NULL;
-        this->Next = NULL;
+        this->value = value;
+        this->prev = NULL;
+        this->next = NULL;
     }
 };
 
@@ -26,29 +28,29 @@ class Stack
 public:
     Stack()
     {
-        head == NULL;
+        head = NULL;
         top = NULL;
     }
 
     // PUSH
-    void push(S value)
+    void Push(S value)
     {
         Node<S> *newNode = new Node<S>(value);
+
         if (head == NULL)
         {
             head = top = newNode;
             count++;
             return;
         }
-        top->Next = newNode;
-        newNode->Prev = top;
+        top->next = newNode;
+        newNode->prev = top;
         top = newNode;
         count++;
     }
 
     // POP
-
-    void pop()
+    S Pop()
     {
         Node<S> *delNode = top;
         S delVal;
@@ -57,16 +59,16 @@ public:
             cout << "Stack Underflow" << endl;
             return delVal;
         }
+
         if (head == top)
         {
             head = top = NULL;
         }
         else
         {
-            top = delNode->Prev;
-            top->Next = NULL;
+            top = delNode->prev;
+            top->next = NULL;
         }
-
         delVal = delNode->value;
         delete delNode;
         count--;
@@ -74,8 +76,7 @@ public:
     }
 
     // SIZE
-
-    int size()
+    int Size()
     {
         return count;
     }
@@ -85,7 +86,8 @@ public:
     {
         if (top == NULL)
         {
-            count << "Stack Underflow | There is no element at the Top" << endl;
+            cout << "Stack Underflow | There is no element at the Top" << endl;
+            //            return -1;
         }
         else
         {
@@ -93,16 +95,12 @@ public:
         }
     }
 
-    // Empty
-    bool empty()
+    // EMPTY
+    bool Empty()
     {
         if (head == NULL)
-        {
             return true;
-        }
         else
-        {
             return false;
-        }
     }
 };
